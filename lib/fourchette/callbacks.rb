@@ -7,13 +7,20 @@ class Fourchette::Callbacks
   end
 
   def before_all
-    logger.info 'Placeholder for before steps...'
+    logger.info 'Before callbacks...'
   end
 
   def after_all
-    logger.info 'Placeholder for after steps...'
-    logger.info "Setting BASE_URL to #{fork_url}"
-    @heroku.client.config_var.update(fork_name, { 'BASE_URL' => 'fork_url' })
+    logger.info 'After callbacks...'
+
+    case @params['action']
+      when 'closed'
+        logger.info "PR was closed..."
+      when 'opened', 'reopened'
+        logger.info "PR was reopened..."
+        logger.info "Setting BASE_URL to #{fork_url}"
+        @heroku.client.config_var.update(fork_name, {'BASE_URL' => 'fork_url'})
+    end
   end
 
   private
