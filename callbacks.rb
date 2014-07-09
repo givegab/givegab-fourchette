@@ -19,7 +19,7 @@ class Fourchette::Callbacks
       when 'opened', 'reopened'
         logger.info "PR was reopened..."
         logger.info "Setting BASE_URL to #{fork_url}"
-        @heroku.client.config_var.update(fork_name, {'BASE_URL' => 'fork_url'})
+        @heroku.client.config_var.update(fork_name, {'BASE_URL' => fork_url})
     end
   end
 
