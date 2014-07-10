@@ -1,6 +1,8 @@
 class Fourchette::PullRequest
   include SuckerPunch::Job
 
+  # Can remove this once the following PR is accepted and the gem is updated
+  # https://github.com/jipiboily/fourchette/pull/22
   def perform params
     unless skip_qa?(params)
       callbacks = Fourchette::Callbacks.new(params)
@@ -26,7 +28,7 @@ class Fourchette::PullRequest
   private
 
   def skip_qa? params
-    params['pull_request']['title'].downcase.include?('[skip qa]')
+    params.fetch('pull_request', {}).fetch('title', '').downcase.include?('[skip qa]')
   end
 
 end
