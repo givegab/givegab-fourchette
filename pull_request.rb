@@ -4,7 +4,7 @@ class Fourchette::PullRequest
   # Can remove this once the following PR is accepted and the gem is updated
   # https://github.com/jipiboily/fourchette/pull/22
   def perform params
-    unless skip_qa?(params)
+    unless qa_skip?(params)
       callbacks = Fourchette::Callbacks.new(params)
       fork = Fourchette::Fork.new(params)
 
@@ -27,8 +27,8 @@ class Fourchette::PullRequest
 
   private
 
-  def skip_qa? params
-    params.fetch('pull_request', {}).fetch('title', '').downcase.include?('[skip qa]')
+  def qa_skip? params
+    params['pull_request']['title'].downcase.include?('[qa skip]')
   end
 
 end
