@@ -1,4 +1,7 @@
 class Fourchette::Heroku
+
+  # Can remove this once the following PR is accepted and the gem is updated
+  # https://github.com/jipiboily/fourchette/pull/21
   def copy_pg from, to
     if pg_enabled?(from)
       logger.info "Copying Postgres's data from #{from} to #{to}"
