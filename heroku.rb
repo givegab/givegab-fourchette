@@ -1,7 +1,7 @@
 class Fourchette::Heroku
   def copy_pg from, to
     from_addons = client.addon.list(from)
-    pg_enabled = from_addons.include?{ |addon| addon['name'] == 'heroku-postgresql' }
+    pg_enabled = from_addons.any?{ |addon| addon['name'] == 'heroku-postgresql' }
     if (pg_enabled)
       logger.info "Copying Postgres's data from #{from} to #{to}"
       backup = Fourchette::Pgbackups.new
