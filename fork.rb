@@ -14,4 +14,8 @@ class Fourchette::Fork
     end
   end
 
+  def post_fork_url
+    @github.comment_pr(pr_number, "Test URL: #{@heroku.client.app.info(fork_name)['web_url']}")
+  end
+
 end
