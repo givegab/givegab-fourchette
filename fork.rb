@@ -6,7 +6,7 @@ class Fourchette::Fork
       @heroku.fork(ENV['FOURCHETTE_HEROKU_APP_TO_FORK'] ,fork_name)
       options = {
           source_blob: {
-              url: '/placeholder'
+              url: "#{ENV['FOURCHETTE_APP_URL']}/placeholder"
           }
       }
       @heroku.client.build.create(fork_name, options)
