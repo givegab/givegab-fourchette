@@ -19,7 +19,6 @@ class Fourchette::Fork
     tarball = Fourchette::Tarball.new
     tarball_url = tarball.url(github_git_url, git_branch_name, ENV['FOURCHETTE_GITHUB_PROJECT'])
     deploy_tarball(tarball_url)
-    @github.comment_pr(pr_number, 'Deploying QA Env')
   end
 
   def deploy_tarball(tarball_url)
@@ -38,7 +37,6 @@ class Fourchette::Fork
 
   def ensure_fork_deleted
     @heroku.delete(fork_name) if @heroku.app_exists?(fork_name)
-    @github.comment_pr(pr_number, 'Deleting QA Env')
   end
 
   private
