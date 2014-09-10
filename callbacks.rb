@@ -18,8 +18,8 @@ class Fourchette::Callbacks
         logger.info "PR was closed..."
       when 'opened', 'reopened'
         logger.info "PR was reopened..."
-        logger.info "Setting BASE_URL to #{fork_url}"
-        @heroku.client.config_var.update(fork_name, {'BASE_URL' => fork_url})
+        logger.info "Setting HOST to #{fork_host}"
+        @heroku.client.config_var.update(fork_name, {'HOST' => fork_host})
     end
   end
 
@@ -33,7 +33,7 @@ class Fourchette::Callbacks
     @fork_name ||= heroku_fork.fork_name
   end
 
-  def fork_url
-    @fork_url ||= "http://#{fork_name}.herokuapp.com"
+  def fork_host
+    @fork_url ||= "#{fork_name}.herokuapp.com"
   end
 end
